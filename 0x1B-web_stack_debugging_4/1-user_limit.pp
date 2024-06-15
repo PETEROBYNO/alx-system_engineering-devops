@@ -1,5 +1,2 @@
-ange ULIMIT
-exec { 'Change ULIMIT':
-  command  => 'echo -e "holberton hard nofile 2500\nholberton soft nofile 25000" > /etc/security/limits.conf',
-  provider => shell,
-}
+# A puppet script
+exec { '/usr/bin/env sed -i "s/holberton/foo/" /etc/security/limits.conf': }
