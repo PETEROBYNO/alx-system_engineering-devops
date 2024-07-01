@@ -1,24 +1,35 @@
 #!/usr/bin/python3
 """
-
-Function queries the Reddit API and returns the number of subscribers
-
+Requirements:
+    Prototype: def number_of_subscribers(subreddit)
+    If not a valid subreddit, return 0.
 """
-
-
+import json
 import requests
+import sys
 
 
 def number_of_subscribers(subreddit):
-    """ queries reddit api """
-    headers = {'User-Agent': 'firstscript/1.0 by Exciting-Professor45'}
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    response = requests.get(url, headers=headers)
-    if response.status_code != 200:
+    """
+        A function that queries the Reddit api and returns
+        the number of subscribers (not acrive users, total sub)
+    """
+    user_agent = '/u/alx API Python for Holberton School'
+    headers = {'user-agent': user_agent}
+
+    # Reddit API endpoint for getting subreddit information
+    url = f'https://www.reddit.com/r/{subreddit}/about.json'
+
+    client = requests.session()
+    client.headers = headers
+
+    response = client.get(url, allow_redirects=False)
+
+    if response.status_code == 200:
+        return response.json()["data"]["subscribers"]
+    elif response.status_code == 404:
+        print(f"Subreddit '{subreddit}' not found.")
         return 0
-    jdict = response.json()
-    if 'data' not in jdict:
+    else:
+        print(f"Error: {response.status_code}")
         return 0
-    if 'subscribers' not in jdict.get('data'):
-        return 0
-    return response.json()['data']['subscribers']
