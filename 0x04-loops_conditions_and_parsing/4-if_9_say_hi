@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Display Best School 10 times using while loop
+# but for the 9th iteration, displays Best School and then Hi on a new line.
+call=1
+while [ $call -le 10 ];
+do
+    if [ $call -eq 9 ];
+then
+        echo "Best School"
+        echo "Hi"
+    else
+        echo "Best School"
+    fi
+
+    ((call++))
+done
