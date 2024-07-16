@@ -1,0 +1,3 @@
+ a MySQL dump and creates a compressed archive out of it.
+mysqldump --all-databases -u root -p"$1" > backup.sql
+tar -czvf "$(date '+%d-%m-%Y').tar.gz" backup.sql
